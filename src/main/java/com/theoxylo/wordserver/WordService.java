@@ -13,4 +13,9 @@ public class WordService {
         System.out.println("get random word");
 	return _wordRepo.getRandomWord();
     }
+
+    public Word createWord(Word word) {
+        System.out.println("service create word called");
+	return _wordRepo.createWord(word);
+    }
 }

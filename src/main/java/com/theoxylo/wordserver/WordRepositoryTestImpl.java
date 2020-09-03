@@ -26,6 +26,14 @@ public class WordRepositoryTestImpl implements WordRepository {
     @Value("${words.filename}")
     private String _wordsFile;
     
+    @Override
+    public Word createWord(Word word) {
+	if (_words == null ||_words.size() == 0) loadWords();
+	_words.add(word.getWord());
+	System.out.println("new word count: " + _words.size());
+	return word;
+    }
+
 	@Override
 	public Word getRandomWord() {
 		//	return new Word("testing");

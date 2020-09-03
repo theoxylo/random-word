@@ -27,4 +27,17 @@ public class WordController {
 		return ResponseEntity.ok(word);
 	}
 
+	@PostMapping(value="/word")
+	public ResponseEntity<Word> createWord(@RequestBody Word word) {
+		System.out.println("word: " + word);
+		wordService.createWord(word);
+		return ResponseEntity.ok(word);
+	}
+
+	@PostMapping(value="/wordtest")
+	public Word createWordTest(@RequestBody Word word) {
+		wordService.createWord(word);
+		return word;
+	}
+
 }
