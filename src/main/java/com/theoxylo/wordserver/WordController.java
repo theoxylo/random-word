@@ -22,6 +22,7 @@ public class WordController {
 
 	@GetMapping(value="/word")
 	public ResponseEntity<Word> getRandomWord() {
+		//Word word = wordService.getRandomWord();
 		Word word = wordService.getRandomWord();
 		return ResponseEntity.ok(word);
 	}
