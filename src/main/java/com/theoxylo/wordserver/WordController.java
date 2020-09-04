@@ -27,17 +27,27 @@ public class WordController {
 		return ResponseEntity.ok(word);
 	}
 
+	@GetMapping(value="/wordx")
+	public Word getRandomWordTest() {
+		Word word = wordService.getRandomWord();
+		//return ResponseEntity.ok(word);
+		return word; // return simple entity object without wrapper
+	}
+
+	@GetMapping(value="/word/{word}/length")
+	public ResponseEntity<Integer> getWordLength(@PathVariable String word) {
+	//public Integer getWordLength(@PathVariable String word) {
+		//Word word = wordService.getRandomWord();
+		//Word word = wordService.getRandomWord();
+		return ResponseEntity.ok(word.length());
+		//return new Integer(word.length());
+	}
+
 	@PostMapping(value="/word")
 	public ResponseEntity<Word> createWord(@RequestBody Word word) {
 		System.out.println("word: " + word);
 		wordService.createWord(word);
 		return ResponseEntity.ok(word);
-	}
-
-	@PostMapping(value="/wordtest")
-	public Word createWordTest(@RequestBody Word word) {
-		wordService.createWord(word);
-		return word;
 	}
 
 }
