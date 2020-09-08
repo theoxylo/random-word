@@ -1,5 +1,7 @@
 package com.theoxylo.wordserver;
 
+import javax.validation.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +46,7 @@ public class WordController {
 	}
 
 	@PostMapping(value="/word")
-	public ResponseEntity<Word> createWord(@RequestBody Word word) {
+	public ResponseEntity<Word> createWord(@Valid @RequestBody Word word) {
 		System.out.println("word: " + word);
 		wordService.createWord(word);
 		return ResponseEntity.ok(word);

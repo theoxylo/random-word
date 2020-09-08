@@ -1,7 +1,10 @@
 package com.theoxylo.wordserver;
 
+import javax.validation.constraints.NotBlank;
+
 public class Word {
     
+    @NotBlank(message = "blank word not allowed")
     String word;
 
     public Word() {
