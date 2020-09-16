@@ -1,5 +1,7 @@
 package com.theoxylo.wordserver;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +38,22 @@ public class WordController {
 		return word; // return simple entity object without wrapper
 	}
 
+	@GetMapping(value="/words")
+	public ResponseEntity<List<Word>> getAllWords() {
+		List<Word> words = new ArrayList<Word>();
+		words.add(new Word("cat"));
+		words.add(new Word("dog"));
+		words.add(new Word("cow"));
+		//return ResponseEntity.ok(words);
+		return ResponseEntity.ok(wordService.getAllWords());
+	}
+
 	@GetMapping(value="/word/{word}/length")
 	public ResponseEntity<Integer> getWordLength(@PathVariable String word) {
 	//public Integer getWordLength(@PathVariable String word) {
 		//Word word = wordService.getRandomWord();
 		//Word word = wordService.getRandomWord();
-		return ResponseEntity.ok(word.length());
+		return ResponseEntity.ok(Integer.valueOf(word.length()));
 		//return new Integer(word.length());
 	}
 
