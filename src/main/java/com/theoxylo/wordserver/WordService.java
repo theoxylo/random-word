@@ -21,10 +21,7 @@ public class WordService {
     }
 
     public Word createWord(Word word) {
-        System.out.println("service create word called");
-	//return _wordRepo.createWord(word);
-	//return new Word("testing");
-	//word.setId("test");
+        System.out.println("service create word called: " + word);
 	word.setId(UUID.randomUUID().toString());
 	return _wordRepo.save(word);
     }
