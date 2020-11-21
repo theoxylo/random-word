@@ -27,7 +27,6 @@ public class WordService {
     }
 
     public List<Word> getAllWords() {
-	    //return Collection.asList(_wordRepo.findAll());
 	    Iterable<Word> words = _wordRepo.findAll();
 	    Iterator<Word> it = words.iterator();
 	    List<Word> list = new ArrayList<Word>();
