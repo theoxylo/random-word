@@ -1,4 +1,4 @@
-// modified from chrombook
+// modified from macbook
 package com.theoxylo.wordserver;
 
 import lombok.Data;
