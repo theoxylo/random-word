@@ -16,6 +16,9 @@ public class Word {
     
     String definition;
 
+    public Word() {
+    }
+
     public Word(String s) {
         word = s;
     }
