@@ -24,8 +24,16 @@ public class WordController {
 	@Autowired 
 	private WordService wordService;
 
+	@Autowired
+	private Properties props;
+
+	public void setProperties(Properties p) {
+		props = p;
+	}
+
 	@GetMapping(value="/word")
 	public ResponseEntity<Word> getRandomWord() {
+		System.out.println("greeting from controller: " + props.greeting);
 		Word word = wordService.getRandomWord();
 		return ResponseEntity.ok(word);
 	}
