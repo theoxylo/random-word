@@ -1,4 +1,3 @@
-// modified from chrombook
 package com.theoxylo.wordserver;
 
 import lombok.Data;
@@ -15,6 +14,9 @@ public class Word {
     String id;
     
     String definition;
+
+    public Word() {
+    }
 
     public Word(String s) {
         word = s;
