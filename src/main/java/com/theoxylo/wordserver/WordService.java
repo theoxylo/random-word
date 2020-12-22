@@ -22,15 +22,16 @@ public class WordService {
 
 	public Word createWord(Word word) {
 		System.out.println("service create word called: " + word);
-		word.setId(UUID.randomUUID().toString());
+		//word.setId(UUID.randomUUID().toString());
 		return _wordRepo.save(word);
 	}
 
 	public List<Word> getAllWords() {
-		// return Collection.asList(_wordRepo.findAll());
+//		return Collections.list(_wordRepo.findAll());
 		Iterable<Word> words = _wordRepo.findAll();
 		Iterator<Word> it = words.iterator();
 		List<Word> list = new ArrayList<Word>();
+//		list.addAll(_wordRepo.findAll());
 		while (it.hasNext()) {
 			list.add(it.next());
 		}

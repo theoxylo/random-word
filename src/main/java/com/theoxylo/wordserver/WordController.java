@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -27,15 +27,12 @@ public class WordController {
 	@Autowired
 	private Properties props;
 
-	public void setProperties(Properties p) {
-		props = p;
-	}
-
 	@GetMapping(value="/word")
 	public ResponseEntity<Word> getRandomWord() {
 		System.out.println("greeting from controller: " + props.greeting);
 		Word word = wordService.getRandomWord();
-		return ResponseEntity.ok(word);
+		//return ResponseEntity.ok(word);
+		return new ResponseEntity<>(word, HttpStatus.OK);
 	}
 
 	@GetMapping(value="/wordx")
@@ -47,12 +44,13 @@ public class WordController {
 
 	@GetMapping(value="/words")
 	public ResponseEntity<List<Word>> getAllWords() {
-		List<Word> words = new ArrayList<Word>();
-		words.add(new Word("cat"));
-		words.add(new Word("dog"));
-		words.add(new Word("cow"));
-		//return ResponseEntity.ok(words);
 		return ResponseEntity.ok(wordService.getAllWords());
+	}
+
+	@GetMapping(value="/wordsx")
+	public Iterable<Word> getAllWordsIterable() {
+		//return ResponseEntity.ok(wordService.getAllWords());
+		return wordService.getAllWords();
 	}
 
 	@GetMapping(value="/word/{word}/length")

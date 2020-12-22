@@ -11,7 +11,7 @@ public class Word {
     String word;
 
     @Id
-    String id;
+    Integer id;
     
     String definition;
 

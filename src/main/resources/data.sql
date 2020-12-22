@@ -7,5 +7,6 @@ create table word (
 );
 
 insert into word (word) values ('test'), ('orange');
-insert into word (word) values ('test'), ('apple');
+insert into word (word) values ('pineapple'), ('apple');
+insert into word (word) values ('banana'), ('grape');
 
