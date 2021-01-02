@@ -1,6 +1,7 @@
 package com.theoxylo.wordserver;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.validation.*;
 
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping(value="api")
+@RequestMapping(value="/api/words")
 public class WordController {
 
 	@Autowired 
@@ -26,6 +27,11 @@ public class WordController {
 
 	@Autowired
 	private Properties props;
+
+	@GetMapping(value="")
+	public ResponseEntity<String> getWords() {
+		return new ResponseEntity<String>("time: " + new Date(), HttpStatus.OK);
+	}
 
 	@GetMapping(value="/word")
 	public ResponseEntity<Word> getRandomWord() {
