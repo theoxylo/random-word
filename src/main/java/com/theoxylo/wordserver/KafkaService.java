@@ -11,22 +11,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaService {
-	
+
 	Logger log = LoggerFactory.getLogger(KafkaService.class);
-	
+
 	@Autowired
 	KafkaTemplate<String, String> kafkaTemplate;
-	
+
 	void send(String message) {
 		log.info("Sending message: " + message);
-		
 		String topic = "quickstart-events";
 		kafkaTemplate.send(topic, message);
 	}
-	
-    @KafkaListener(topics = "quickstart-events", groupId = "group_id")
-    public void consume(String message) throws IOException {
-    	log.info("Received message: " + message);
-    }
+
+	@KafkaListener(topics = "quickstart-events", groupId = "group_id")
+	public void consume(String message) throws IOException {
+		log.info("Received message: " + message);
+	}
 
 }
