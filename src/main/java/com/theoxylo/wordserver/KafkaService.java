@@ -15,17 +15,17 @@ public class KafkaService {
 	Logger log = LoggerFactory.getLogger(KafkaService.class);
 
 	@Autowired
-	KafkaTemplate<String, String> kafkaTemplate;
+	KafkaTemplate<String, Word> kafkaTemplate;
 
-	void send(String message) {
-		log.info("Sending message: " + message);
+	void send(Word word) {
+		log.info("Sending word: " + word);
 		String topic = "quickstart-events";
-		kafkaTemplate.send(topic, message);
+		kafkaTemplate.send(topic, word);
 	}
 
 	@KafkaListener(topics = "quickstart-events", groupId = "group_id")
-	public void consume(String message) throws IOException {
-		log.info("Received message: " + message);
+	public void consume(Word word) throws IOException {
+		log.info("Received word: " + word);
 	}
 
 }
