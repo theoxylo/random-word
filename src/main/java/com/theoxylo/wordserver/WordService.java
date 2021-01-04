@@ -32,10 +32,8 @@ public class WordService {
 
 	public Word createWord(Word word) {
 		log.info("service create word called: " + word);
-		//word.setId(UUID.randomUUID().toString());
-		//kafkaService.send("Creating word: " + word.toString());
 		Word result = _wordRepo.save(word);
-		kafkaService.send("Created word: " + result.toString());
+		kafkaService.send(word);
 		return result;
 	}
 
@@ -44,9 +42,10 @@ public class WordService {
 		Iterator<Word> it = words.iterator();
 		List<Word> list = new ArrayList<Word>();
 		while (it.hasNext()) {
-			list.add(it.next());
+			Word word = it.next();
+			kafkaService.send(word);
+			list.add(word);
 		}		
-		kafkaService.send(words.toString());
 		log.info("all words: " + words);
 		return list;
 	}
