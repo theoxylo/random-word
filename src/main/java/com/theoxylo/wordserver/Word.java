@@ -2,6 +2,8 @@ package com.theoxylo.wordserver;
 
 import lombok.Data;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -11,6 +13,7 @@ public class Word {
     String word;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     
     String definition;
@@ -22,7 +25,9 @@ public class Word {
         word = s;
     }
     
-    public String toString() { return word; }
+    public String toString() { 
+    	return word; 
+    }
 
     public int getLength() {
         return word.length();
