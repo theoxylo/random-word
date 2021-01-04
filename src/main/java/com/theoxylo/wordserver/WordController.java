@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping(value="/api/words")
+@RequestMapping(value="/api")
 public class WordController {
 
 	@Autowired 
@@ -28,7 +28,7 @@ public class WordController {
 	@Autowired
 	private Properties props;
 
-	@GetMapping(value="")
+	@GetMapping(value="/date")
 	public ResponseEntity<String> getWords() {
 		return new ResponseEntity<String>("time: " + new Date(), HttpStatus.OK);
 	}
@@ -72,7 +72,8 @@ public class WordController {
 	public ResponseEntity<Word> createWord(@Valid @RequestBody Word word) {
 		System.out.println("word: " + word);
 		wordService.createWord(word);
-		return ResponseEntity.ok(word);
+		//return ResponseEntity.ok(word);
+		return new ResponseEntity<>(word, HttpStatus.CREATED);
 	}
 
 }
