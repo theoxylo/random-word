@@ -37,6 +37,7 @@ public class WordService {
 
 	public Word createWord(Word word) {
 		log.info("service create word called: " + word);
+		log.info("definition data: " + word.getDefinitions());
 		Word result = _wordRepo.save(word);
 		kafkaService.send(word);
 		return result;

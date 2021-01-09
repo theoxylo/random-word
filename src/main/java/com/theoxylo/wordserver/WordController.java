@@ -43,7 +43,7 @@ public class WordController {
 
 	@GetMapping(value="/wordx")
 	public Word getRandomWordTest() {
-		Word word = wordService.getRandomWord();
+		Word word = wordService.getRandomWordFromFile();
 		//return ResponseEntity.ok(word);
 		return word; // return simple entity object without wrapper
 	}
