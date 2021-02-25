@@ -29,8 +29,9 @@ public class WordController {
 	private Properties props;
 
 	@GetMapping(value="/date")
-	public ResponseEntity<String> getWords() {
-		return new ResponseEntity<String>("time: " + new Date(), HttpStatus.OK);
+	public ResponseEntity<Date> getDate() {
+		//return new ResponseEntity<String>("time: " + new Date(), HttpStatus.OK);
+		return new ResponseEntity<Date>(new Date(), HttpStatus.OK);
 	}
 
 	@GetMapping(value="/word")
@@ -55,17 +56,27 @@ public class WordController {
 
 	@GetMapping(value="/wordsx")
 	public Iterable<Word> getAllWordsIterable() {
-		//return ResponseEntity.ok(wordService.getAllWords());
 		return wordService.getAllWords();
 	}
 
 	@GetMapping(value="/word/{word}/length")
 	public ResponseEntity<Integer> getWordLength(@PathVariable String word) {
 	//public Integer getWordLength(@PathVariable String word) {
-		//Word word = wordService.getRandomWord();
-		//Word word = wordService.getRandomWord();
 		return ResponseEntity.ok(Integer.valueOf(word.length()));
-		//return new Integer(word.length());
+		//return new Integer(word.length());		
+	}
+
+	@GetMapping(value="/word/{word}/info")
+	public ResponseEntity<Word> getWordInfo(@PathVariable String word) {
+		return ResponseEntity.ok(new Word(word));
+	}
+
+	@GetMapping(value="/word/{id}")
+	public ResponseEntity<Word> getWordDetails(@PathVariable Integer id) {
+		//return ResponseEntity.ok(wordService.getWord(id));
+		
+		Word result = wordService.getWord(id);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	@PostMapping(value="/word")

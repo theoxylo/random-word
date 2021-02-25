@@ -1,12 +1,10 @@
 package com.theoxylo.wordserver;
 
-import java.util.List;
-import java.util.Collection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 import com.theoxylo.wordserver.KafkaService;
@@ -28,13 +26,18 @@ public class WordService {
 	@Autowired
 	private KafkaService kafkaService;
 
-	public Word getRandomWord() {
+	public Word getRandomWordFromRepoNotUsed() {
 		log.info("get random word");
-		// return _wordRepo.getRandomWord();
+		//return _wordRepo.getRandomWord();
 		return new Word("testing");
-		// return _wordRepo.findOne("test");
 	}
-
+	
+	public Word getWord(Integer id) {
+		Optional<Word> word = _wordRepo.findById(id);
+		if (word.isPresent()) return word.get();
+		return null;
+	}
+	
 	public Word createWord(Word word) {
 		log.info("service create word called: " + word);
 		log.info("definition data: " + word.getDefinitions());
@@ -49,11 +52,19 @@ public class WordService {
 		List<Word> list = new ArrayList<Word>();
 		while (it.hasNext()) {
 			Word word = it.next();
-			kafkaService.send(word);
+			//kafkaService.send(word);
 			list.add(word);
 		}		
 		log.info("all words: " + words);
 		return list;
+	}
+	
+	public Word getRandomWord() {
+		List<Word> words = getAllWords();
+		int randomIndex = new Random().nextInt(words.size());
+		Word result = words.get(randomIndex);	
+		kafkaService.send(result);
+		return result;
 	}
 	
 	public Word getRandomWordFromFile() {
@@ -65,15 +76,16 @@ public class WordService {
 			while (in.ready()) {
 				String word = in.readLine();
 				_words.add(word);
-				//kafkaService.send(new Word(word)); // to much console logging, 370k words
 			}
-			System.out.println("word count: " + _words.size());
+			log.info("word count: " + _words.size());
 		}
 		catch (IOException e) {
-			System.out.println(e);
+			log.error(e.getMessage());
 		}
 		int randomIndex = new Random().nextInt(_words.size());
-		return new Word(_words.get(randomIndex));	
+		Word result = new Word(_words.get(randomIndex));	
+		kafkaService.send(result);
+		return result;
 	}
 
 }
